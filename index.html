@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="PortAVO – Skreddersydde apper, verktøy og spill for Arendal Voksenopplæring">
+<title>PortAVO – Arendal Voksenopplæring</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#FDFAF6;--bg2:#F5EFE7;--card:#FFFFFF;
+  --text:#2A2540;--text2:#6B6580;--text3:#9B95A8;
+  --radius:24px;--radius-sm:14px;
+  --shadow:0 6px 24px rgba(0,0,0,0.06),0 2px 6px rgba(0,0,0,0.03);
+  --shadow-hover:0 12px 40px rgba(0,0,0,0.10),0 4px 10px rgba(0,0,0,0.05);
+  --ito:#5A9EF2;--ito-light:#EBF3FF;--ito-dark:#3A7BD5;
+  --fov:#E8854A;--fov-light:#FFF2E8;--fov-dark:#C96E35;
+  --norsk:#6BCF6B;--norsk-light:#EDFAED;--norsk-dark:#4AAF4A;
+  --laerer:#A87DE8;--laerer-light:#F3EDFF;--laerer-dark:#8B5FCC;
+  --teal:#2EC4A8;--gold:#F5B83D;--red:#E85D5D;--pink:#E87DAE;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+.bg-deco{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;opacity:.08;animation:blobFloat 20s ease-in-out infinite alternate;}
+.blob:nth-child(1){width:400px;height:400px;background:var(--ito);top:-120px;left:-100px;animation-duration:24s;}
+.blob:nth-child(2){width:300px;height:300px;background:var(--fov);top:40%;right:-80px;animation-duration:18s;animation-delay:-5s;}
+.blob:nth-child(3){width:350px;height:350px;background:var(--norsk);bottom:-80px;left:20%;animation-duration:22s;animation-delay:-10s;}
+.blob:nth-child(4){width:250px;height:250px;background:var(--laerer);top:20%;left:50%;animation-duration:20s;animation-delay:-3s;border-radius:40% 60% 55% 45%/55% 45% 60% 40%;}
+@keyframes blobFloat{0%{transform:translate(0,0) scale(1) rotate(0)}50%{transform:translate(40px,-50px) scale(1.08) rotate(15deg)}100%{transform:translate(-20px,30px) scale(.95) rotate(-10deg)}}
+
+.container{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 20px;}
+
+/* HEADER */
+.header{text-align:center;padding:50px 0 12px;animation:fadeUp .7s ease-out;}
+.header-wave{font-size:3.5rem;display:inline-block;animation:wave 2.5s ease-in-out infinite;transform-origin:70% 70%;}
+@keyframes wave{0%,100%{transform:rotate(0)}15%{transform:rotate(14deg)}30%{transform:rotate(-8deg)}40%{transform:rotate(10deg)}50%{transform:rotate(-4deg)}60%{transform:rotate(0)}}
+.header h1{font-family:'Fredoka',sans-serif;font-size:clamp(2.2rem,7vw,3.5rem);font-weight:700;margin-top:8px;letter-spacing:-1px;}
+.header h1 .port{color:var(--teal);}
+.header h1 .avo{background:linear-gradient(135deg,var(--fov),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-sub{font-size:1.05rem;color:var(--text2);margin-top:10px;font-weight:600;line-height:1.6;max-width:540px;display:inline-block;}
+.header-badge-wrapper{width:100%;display:flex;justify-content:center;}
+.header-badge{display:inline-flex;align-items:center;gap:6px;background:white;border:2px solid rgba(0,0,0,.05);border-radius:50px;padding:7px 16px;font-size:.82rem;font-weight:700;color:var(--text2);margin-top:14px;box-shadow:0 2px 10px rgba(0,0,0,.03);}
+
+/* TOOLBAR */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:24px 0 8px;animation:fadeUp .7s ease-out .1s both;}
+.filter-btn{background:white;border:2px solid rgba(0,0,0,.07);border-radius:50px;padding:9px 18px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:700;color:var(--text2);cursor:pointer;transition:all .25s ease;display:flex;align-items:center;gap:5px;box-shadow:0 2px 8px rgba(0,0,0,.03);}
+.filter-btn:hover{border-color:var(--teal);color:var(--teal);transform:translateY(-1px);}
+.filter-btn.active{background:var(--text);color:white;border-color:var(--text);}
+.filter-btn .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+.search-wrap{max-width:440px;margin:16px auto 6px;position:relative;animation:fadeUp .7s ease-out .15s both;}
+.search-input{width:100%;padding:14px 18px 14px 48px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:600;border:2px solid rgba(0,0,0,.06);border-radius:16px;background:white;color:var(--text);outline:none;transition:all .3s ease;box-shadow:0 3px 12px rgba(0,0,0,.03);}
+.search-input::placeholder{color:#B8B0C4;}
+.search-input:focus{border-color:var(--teal);box-shadow:0 3px 20px rgba(46,196,168,.12);}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:1.15rem;opacity:.35;pointer-events:none;}
+
+/* SECTION */
+.section{margin:28px 0 0;animation:fadeUp .6s ease-out both;}
+
+/* APP GRID */
+.app-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,300px));
+  justify-content:center;
+  gap:18px;
+}
+
+/* APP CARD */
+.app-card{
+  background:white;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  transition:transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s ease;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  max-width:300px;
+}
+.app-card[href]{cursor:pointer;}
+.app-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);}
+.app-card:active{transform:translateY(-2px) scale(.99);}
+.app-card:focus-visible{outline:3px solid var(--teal);outline-offset:3px;}
+.app-card.coming-soon{opacity:.75;cursor:default;}
+.app-card.coming-soon:hover{transform:none;box-shadow:var(--shadow);}
+
+.card-banner{height:110px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.card-banner .emoji-main{font-size:3.5rem;position:relative;z-index:2;filter:drop-shadow(0 3px 6px rgba(0,0,0,.1));animation:gentleBob 3s ease-in-out infinite;}
+.card-banner .emoji-bg{position:absolute;font-size:4.5rem;opacity:.1;z-index:1;}
+.card-banner .emoji-bg:nth-child(2){top:-8px;left:12px;transform:rotate(-12deg);}
+.card-banner .emoji-bg:nth-child(3){bottom:-12px;right:12px;transform:rotate(15deg);}
+@keyframes gentleBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.ribbon{position:absolute;top:14px;right:-28px;background:var(--gold);color:#fff;font-size:.65rem;font-weight:800;padding:4px 32px;transform:rotate(35deg);letter-spacing:1px;text-transform:uppercase;z-index:5;box-shadow:0 2px 8px rgba(245,184,61,.3);}
+
+.card-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column;}
+.card-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.badge{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:4px 10px;border-radius:50px;}
+.badge-ito{background:var(--ito-light);color:var(--ito-dark);}
+.badge-fov{background:var(--fov-light);color:var(--fov-dark);}
+.badge-norsk{background:var(--norsk-light);color:var(--norsk-dark);}
+.badge-laerer{background:var(--laerer-light);color:var(--laerer-dark);}
+.badge-deltaker{background:#FFF8E8;color:#B8860B;}
+
+.card-title{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:6px;line-height:1.2;}
+.card-desc{font-size:.88rem;color:var(--text2);line-height:1.5;flex:1;font-weight:600;}
+.card-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.chip{display:inline-flex;align-items:center;gap:3px;background:var(--bg2);border-radius:50px;padding:4px 10px;font-size:.75rem;font-weight:700;color:var(--text2);}
+
+.card-cta{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;padding:12px;border-radius:14px;font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;color:white;transition:filter .2s ease;}
+.app-card:hover .card-cta{filter:brightness(1.06);}
+.card-cta.cta-coming{background:var(--bg2);color:var(--text3);cursor:default;}
+.cta-ito{background:linear-gradient(135deg,var(--ito),var(--ito-dark));}
+.cta-fov{background:linear-gradient(135deg,var(--fov),var(--fov-dark));}
+.cta-norsk{background:linear-gradient(135deg,var(--norsk),var(--norsk-dark));}
+.cta-laerer{background:linear-gradient(135deg,var(--laerer),var(--laerer-dark));}
+
+/* Daha canlı banner renkleri */
+.banner-ito{background:linear-gradient(135deg,#0a1628,#1a0a3e);}
+.banner-fov{background:linear-gradient(135deg,#efc9ae,#f6ddd0);}
+.banner-norsk{background:linear-gradient(135deg,#cfeccb,#e5f7e3);}
+.banner-laerer{background:linear-gradient(135deg,#d9c7fb,#eee3ff);}
+
+.card-social{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,.05);}
+.like-btn{display:flex;align-items:center;gap:5px;background:none;border:2px solid rgba(0,0,0,.06);border-radius:50px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--text2);cursor:pointer;transition:all .25s ease;user-select:none;-webkit-user-select:none;}
+.like-btn:hover{border-color:var(--pink);color:var(--pink);background:rgba(232,125,174,.06);}
+.like-btn.liked{border-color:var(--pink);color:var(--pink);background:rgba(232,125,174,.08);}
+.like-btn.liked .like-heart{animation:heartPop .4s ease;}
+.like-heart{font-size:1rem;transition:transform .2s ease;}
+@keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.4)}100%{transform:scale(1)}}
+
+.fb-toggle{display:flex;align-items:center;gap:4px;background:none;border:2px solid rgba(0,0,0,.06);border-radius:50px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--text2);cursor:pointer;transition:all .25s ease;margin-left:auto;}
+.fb-toggle:hover{border-color:var(--teal);color:var(--teal);}
+
+.fb-area{display:none;margin-top:10px;animation:fadeUp .3s ease;}
+.fb-area.open{display:block;}
+.fb-list{max-height:160px;overflow-y:auto;margin-bottom:8px;}
+.fb-item{background:var(--bg);border-radius:12px;padding:8px 12px;margin-bottom:6px;font-size:.82rem;color:var(--text2);font-weight:600;line-height:1.4;}
+.fb-item .fb-time{font-size:.68rem;color:var(--text3);margin-top:2px;}
+.fb-input-row{display:flex;gap:6px;}
+.fb-input{flex:1;padding:10px 14px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:600;border:2px solid rgba(0,0,0,.06);border-radius:12px;background:white;color:var(--text);outline:none;transition:border-color .3s;}
+.fb-input:focus{border-color:var(--teal);}
+.fb-send{background:var(--teal);color:white;border:none;border-radius:12px;padding:10px 16px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.fb-send:hover{background:#25A88E;transform:translateY(-1px);}
+
+.lock-overlay{position:relative;margin:28px 0 0;}
+.lock-gate{text-align:center;padding:40px 20px;background:white;border-radius:var(--radius);box-shadow:var(--shadow);animation:fadeUp .6s ease-out .5s both;}
+.lock-emoji{font-size:3rem;margin-bottom:10px;}
+.lock-title{font-family:'Fredoka',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:6px;}
+.lock-sub{font-size:.9rem;color:var(--text2);font-weight:600;margin-bottom:18px;}
+.lock-contact{font-size:.82rem;color:var(--text3);font-weight:600;margin-bottom:4px;line-height:1.5;}
+.lock-contact a{color:var(--laerer);text-decoration:none;font-weight:700;}
+.lock-contact a:hover{text-decoration:underline;}
+.lock-input-row{display:flex;gap:8px;max-width:300px;margin:0 auto;align-items:center;}
+.lock-input{flex:1;padding:12px 16px;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:700;border:2px solid rgba(0,0,0,.08);border-radius:14px;background:var(--bg);color:var(--text);outline:none;text-align:center;letter-spacing:3px;transition:all .3s ease;}
+.lock-input:focus{border-color:var(--laerer);box-shadow:0 0 16px rgba(168,125,232,.15);}
+.lock-input.wrong{border-color:var(--red);animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.lock-btn{background:var(--laerer);color:white;border:none;border-radius:14px;padding:12px 20px;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:800;cursor:pointer;transition:all .2s ease;white-space:nowrap;}
+.lock-btn:hover{background:var(--laerer-dark);transform:translateY(-1px);}
+.lock-error{color:var(--red);font-size:.85rem;font-weight:700;margin-top:10px;min-height:20px;}
+.teacher-content{display:none;}
+.teacher-content.unlocked{display:block;animation:fadeUp .5s ease-out;}
+.teacher-tools-top{display:flex;justify-content:flex-end;margin-bottom:14px;}
+
+.empty-state{text-align:center;padding:50px 20px;display:none;}
+.empty-state.show{display:block;animation:fadeUp .4s ease;}
+.empty-state .empty-emoji{font-size:3rem;margin-bottom:10px;}
+.empty-state p{font-size:1rem;color:var(--text2);font-weight:600;}
+
+.footer{text-align:center;padding:40px 20px 30px;color:var(--text3);font-size:.82rem;font-weight:600;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:520px){
+  .header{padding:32px 0 8px;}
+  .header-wave{font-size:2.8rem;}
+  .card-banner{height:95px;}
+  .card-banner .emoji-main{font-size:2.8rem;}
+  .app-grid{grid-template-columns:1fr;justify-items:center;gap:14px;}
+  .app-card{max-width:100%;}
+  .section,.lock-overlay{margin:22px 0 0;}
+  .filter-btn{padding:7px 14px;font-size:.82rem;}
+  .teacher-tools-top{justify-content:center;}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}}
+</style>
+</head>
+<body>
+
+<div class="bg-deco">
+  <div class="blob"></div>
+  <div class="blob"></div>
+  <div class="blob"></div>
+  <div class="blob"></div>
+</div>
+
+<div class="container">
+
+<header class="header">
+  <div class="header-wave">🎓</div>
+  <h1><span class="port">Port</span><span class="avo">AVO</span></h1>
+  <p class="header-sub">Alle apper, verktøy og spill laget spesielt for Arendal Voksenopplæring – samlet på ett sted, lett tilgjengelig for alle.</p>
+  <div class="header-badge-wrapper">
+    <div class="header-badge">🏫 Arendal Voksenopplæring</div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <button class="filter-btn active" onclick="filterApps('all',this)">Alle</button>
+  <button class="filter-btn" onclick="filterApps('ito',this)"><span class="dot" style="background:var(--ito)"></span>ITO</button>
+  <button class="filter-btn" onclick="filterApps('fov',this)"><span class="dot" style="background:var(--fov)"></span>FOV</button>
+  <button class="filter-btn" onclick="filterApps('norsk',this)"><span class="dot" style="background:var(--norsk)"></span>Norsk</button>
+  <button class="filter-btn" onclick="filterApps('laerer',this)"><span class="dot" style="background:var(--laerer)"></span>🔒 Lærere</button>
+</div>
+
+<div class="search-wrap">
+  <span class="search-icon">🔍</span>
+  <input type="text" class="search-input" id="searchInput" placeholder="Søk etter en app..." autocomplete="off" aria-label="Søk etter apper">
+</div>
+
+<div class="section" data-section="ito">
+  <div class="app-grid">
+
+    <a href="https://fikretkurtunyeri-a11y.github.io/mattavo/" class="app-card" data-id="mattavo" data-tags="ito deltaker mattavo matematikk matte regning pluss minus spill" target="_blank" rel="noopener">
+      <div class="card-banner banner-ito">
+        <span class="emoji-bg">🌍</span>
+        <span class="emoji-bg">⭐</span>
+        <span class="emoji-main">🚀</span>
+      </div>
+      <div class="card-body">
+        <div class="card-badges"><span class="badge badge-ito">ITO</span><span class="badge badge-deltaker">Deltaker</span></div>
+        <div class="card-title">MattAVO</div>
+        <div class="card-desc">Lær matematikk mens du reiser gjennom universet! Øv på pluss og minus med stigende vanskelighetsgrad.</div>
+        <div class="card-chips"><span class="chip">➕ Pluss & Minus</span><span class="chip">🪐 8 nivåer</span><span class="chip">🎵 Lyd</span></div>
+        <div class="card-cta cta-ito">Spill nå →</div>
+        <div class="card-social" onclick="event.preventDefault();event.stopPropagation();">
+          <button class="like-btn" onclick="toggleLike('mattavo',this)"><span class="like-heart">🤍</span><span class="like-count">0</span></button>
+          <button class="fb-toggle" onclick="toggleFb('mattavo')">💬 <span class="fb-count">0</span></button>
+        </div>
+        <div class="fb-area" id="fb-mattavo" onclick="event.preventDefault();event.stopPropagation();">
+          <div class="fb-list" id="fblist-mattavo"></div>
+          <div class="fb-input-row">
+            <input class="fb-input" id="fbin-mattavo" placeholder="Skriv en tilbakemelding..." maxlength="200">
+            <button class="fb-send" onclick="sendFb('mattavo')">Send</button>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://fikretkurtunyeri-a11y.github.io/TikTakAVO/" class="app-card" data-id="tiktakavo" data-tags="ito deltaker tiktakavo klokke tid lese klokken time minutt spill" target="_blank" rel="noopener">
+      <div class="card-banner" style="background:linear-gradient(135deg,#cfeeed,#f5ddd0);">
+        <span class="emoji-bg">🕐</span>
+        <span class="emoji-bg">⏰</span>
+        <span class="emoji-main">🕐</span>
+      </div>
+      <div class="card-body">
+        <div class="card-badges"><span class="badge badge-ito">ITO</span><span class="badge badge-deltaker">Deltaker</span></div>
+        <div class="card-title">TikTakAVO</div>
+        <div class="card-desc">Lær å lese klokken! Les, lytt, still viserne og koble sammen – med norsk tale.</div>
+        <div class="card-chips"><span class="chip">👀 4 moduser</span><span class="chip">🔊 Norsk tale</span><span class="chip">🐻 Flere brukere</span></div>
+        <div class="card-cta cta-ito">Spill nå →</div>
+        <div class="card-social" onclick="event.preventDefault();event.stopPropagation();">
+          <button class="like-btn" onclick="toggleLike('tiktakavo',this)"><span class="like-heart">🤍</span><span class="like-count">0</span></button>
+          <button class="fb-toggle" onclick="toggleFb('tiktakavo')">💬 <span class="fb-count">0</span></button>
+        </div>
+        <div class="fb-area" id="fb-tiktakavo" onclick="event.preventDefault();event.stopPropagation();">
+          <div class="fb-list" id="fblist-tiktakavo"></div>
+          <div class="fb-input-row">
+            <input class="fb-input" id="fbin-tiktakavo" placeholder="Skriv en tilbakemelding..." maxlength="200">
+            <button class="fb-send" onclick="sendFb('tiktakavo')">Send</button>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<div class="section" data-section="fov">
+  <div class="app-grid">
+
+    <a href="https://fikretkurtunyeri-a11y.github.io/info-om-eksamen-avo/" class="app-card" data-id="eksamen-eng" data-tags="fov deltaker eksamen engelsk informasjon info språk flerspråklig" target="_blank" rel="noopener">
+      <div class="card-banner banner-fov">
+        <span class="emoji-bg">🇬🇧</span>
+        <span class="emoji-bg">📖</span>
+        <span class="emoji-main">📚</span>
+      </div>
+      <div class="card-body">
+        <div class="card-badges"><span class="badge badge-fov">FOV</span><span class="badge badge-deltaker">Deltaker</span></div>
+        <div class="card-title">Info om eksamen – Engelsk</div>
+        <div class="card-desc">Alt du trenger å vite om engelskeksamen – tilgjengelig på 8 forskjellige språk.</div>
+        <div class="card-chips"><span class="chip">🇬🇧 Engelskeksamen</span><span class="chip">🌍 8 språk</span><span class="chip">📋 Praktisk info</span></div>
+        <div class="card-cta cta-fov">Åpne →</div>
+        <div class="card-social" onclick="event.preventDefault();event.stopPropagation();">
+          <button class="like-btn" onclick="toggleLike('eksamen-eng',this)"><span class="like-heart">🤍</span><span class="like-count">0</span></button>
+          <button class="fb-toggle" onclick="toggleFb('eksamen-eng')">💬 <span class="fb-count">0</span></button>
+        </div>
+        <div class="fb-area" id="fb-eksamen-eng" onclick="event.preventDefault();event.stopPropagation();">
+          <div class="fb-list" id="fblist-eksamen-eng"></div>
+          <div class="fb-input-row">
+            <input class="fb-input" id="fbin-eksamen-eng" placeholder="Skriv en tilbakemelding..." maxlength="200">
+            <button class="fb-send" onclick="sendFb('eksamen-eng')">Send</button>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <a href="https://fikretkurtunyeri-a11y.github.io/info-om-eksamen-norsk/" class="app-card" data-id="eksamen-nor" data-tags="fov deltaker eksamen norsk informasjon info språk flerspråklig" target="_blank" rel="noopener">
+      <div class="card-banner banner-fov">
+        <span class="emoji-bg">🇳🇴</span>
+        <span class="emoji-bg">📖</span>
+        <span class="emoji-main">📝</span>
+      </div>
+      <div class="card-body">
+        <div class="card-badges"><span class="badge badge-fov">FOV</span><span class="badge badge-deltaker">Deltaker</span></div>
+        <div class="card-title">Info om eksamen – Norsk</div>
+        <div class="card-desc">Alt du trenger å vite om norskeksamen – tilgjengelig på 8 forskjellige språk.</div>
+        <div class="card-chips"><span class="chip">🇳🇴 Norskeksamen</span><span class="chip">🌍 8 språk</span><span class="chip">📋 Praktisk info</span></div>
+        <div class="card-cta cta-fov">Åpne →</div>
+        <div class="card-social" onclick="event.preventDefault();event.stopPropagation();">
+          <button class="like-btn" onclick="toggleLike('eksamen-nor',this)"><span class="like-heart">🤍</span><span class="like-count">0</span></button>
+          <button class="fb-toggle" onclick="toggleFb('eksamen-nor')">💬 <span class="fb-count">0</span></button>
+        </div>
+        <div class="fb-area" id="fb-eksamen-nor" onclick="event.preventDefault();event.stopPropagation();">
+          <div class="fb-list" id="fblist-eksamen-nor"></div>
+          <div class="fb-input-row">
+            <input class="fb-input" id="fbin-eksamen-nor" placeholder="Skriv en tilbakemelding..." maxlength="200">
+            <button class="fb-send" onclick="sendFb('eksamen-nor')">Send</button>
+          </div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<div class="section" data-section="norsk">
+  <div class="app-grid">
+    <div class="app-card coming-soon" data-tags="norsk deltaker kommer snart surprise">
+      <div class="card-banner banner-norsk" style="position:relative;">
+        <div class="ribbon">Kommer snart</div>
+        <span class="emoji-bg">🇳🇴</span>
+        <span class="emoji-bg">✨</span>
+        <span class="emoji-main">🎁</span>
+      </div>
+      <div class="card-body">
+        <div class="card-badges"><span class="badge badge-norsk">Norsk</span></div>
+        <div class="card-title">Noe spennende er på vei...</div>
+        <div class="card-desc">Vi jobber med noe nytt for norskavdelingen. Følg med – det blir bra!</div>
+        <div class="card-cta cta-coming">🔜 Kommer snart</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lock-overlay" data-section="laerer" id="sectionLaerer">
+  <div class="lock-gate" id="lockGate">
+    <div class="lock-emoji">🔐</div>
+    <div class="lock-title">Lærerområde</div>
+    <div class="lock-sub">Skriv inn passord for å se lærerverktøy</div>
+    <div class="lock-contact">Har du ikke passord? Kontakt <a href="mailto:fikret.kurt@arendal.kommune.no">fikret.kurt@arendal.kommune.no</a></div>
+    <div class="lock-input-row">
+      <input type="password" class="lock-input" id="lockInput" placeholder="••••••" maxlength="20" autocomplete="off">
+      <button class="lock-btn" onclick="tryUnlock()">Lås opp</button>
+    </div>
+    <div class="lock-error" id="lockError"></div>
+  </div>
+
+  <div class="teacher-content" id="teacherContent">
+    <div class="teacher-tools-top">
+      <button onclick="lockTeacher()" style="background:none;border:1px solid var(--laerer);color:var(--laerer);border-radius:50px;padding:5px 12px;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;">🔒 Lås</button>
+    </div>
+
+    <div class="app-grid">
+
+      <a href="https://avodio-694085437467.us-west1.run.app/" class="app-card" data-id="avodio" data-tags="laerer avodio lyd tekst tale audio norsk engelsk ai" target="_blank" rel="noopener">
+        <div class="card-banner banner-laerer">
+          <span class="emoji-bg">🎤</span>
+          <span class="emoji-bg">📄</span>
+          <span class="emoji-main">🔊</span>
+        </div>
+        <div class="card-body">
+          <div class="card-badges"><span class="badge badge-laerer">Lærer</span></div>
+          <div class="card-title">AVOdio</div>
+          <div class="card-desc">Gjør tekst til naturlig tale. Last ned lydfiler på norsk eller engelsk – med AI-drevet stemme.</div>
+          <div class="card-chips"><span class="chip">🎤 Tekst → Lyd</span><span class="chip">🇳🇴🇬🇧 Norsk & Engelsk</span><span class="chip">🤖 AI-stemme</span></div>
+          <div class="card-cta cta-laerer">Åpne →</div>
+          <div class="card-social" onclick="event.preventDefault();event.stopPropagation();">
+            <button class="like-btn" onclick="toggleLike('avodio',this)"><span class="like-heart">🤍</span><span class="like-count">0</span></button>
+            <button class="fb-toggle" onclick="toggleFb('avodio')">💬 <span class="fb-count">0</span></button>
+          </div>
+          <div class="fb-area" id="fb-avodio" onclick="event.preventDefault();event.stopPropagation();">
+            <div class="fb-list" id="fblist-avodio"></div>
+            <div class="fb-input-row">
+              <input class="fb-input" id="fbin-avodio" placeholder="Skriv en tilbakemelding..." maxlength="200">
+              <button class="fb-send" onclick="sendFb('avodio')">Send</button>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://fikretkurtunyeri-a11y.github.io/FOVmuntlig/" class="app-card" data-id="muntlig-mal" data-tags="laerer fov muntlig eksamen mal template vurdering" target="_blank" rel="noopener">
+        <div class="card-banner banner-laerer">
+          <span class="emoji-bg">📋</span>
+          <span class="emoji-bg">✍️</span>
+          <span class="emoji-main">🎤</span>
+        </div>
+        <div class="card-body">
+          <div class="card-badges"><span class="badge badge-fov">FOV</span><span class="badge badge-laerer">Lærer</span></div>
+          <div class="card-title">Muntlig Eksamen Mal</div>
+          <div class="card-desc">Automatisk mal for muntlige eksamener i FOV. Spar tid med ferdig oppsett for vurdering.</div>
+          <div class="card-chips"><span class="chip">📋 Ferdig mal</span><span class="chip">⚡ Tidsbesparende</span></div>
+          <div class="card-cta cta-laerer">Åpne →</div>
+          <div class="card-social" onclick="event.preventDefault();event.stopPropagation();">
+            <button class="like-btn" onclick="toggleLike('muntlig-mal',this)"><span class="like-heart">🤍</span><span class="like-count">0</span></button>
+            <button class="fb-toggle" onclick="toggleFb('muntlig-mal')">💬 <span class="fb-count">0</span></button>
+          </div>
+          <div class="fb-area" id="fb-muntlig-mal" onclick="event.preventDefault();event.stopPropagation();">
+            <div class="fb-list" id="fblist-muntlig-mal"></div>
+            <div class="fb-input-row">
+              <input class="fb-input" id="fbin-muntlig-mal" placeholder="Skriv en tilbakemelding..." maxlength="200">
+              <button class="fb-send" onclick="sendFb('muntlig-mal')">Send</button>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<div class="empty-state" id="emptyState">
+  <div class="empty-emoji">🤔</div>
+  <p>Ingen apper funnet. Prøv et annet søkeord!</p>
+</div>
+
+<footer class="footer">PortAVO · Arendal Voksenopplæring</footer>
+</div>
+
+<script>
+function getData(){try{return JSON.parse(localStorage.getItem('portavo_data'))||{};}catch(e){return {};}}
+function setData(d){try{localStorage.setItem('portavo_data',JSON.stringify(d));}catch(e){}}
+function getAppData(id){const d=getData();if(!d[id])d[id]={likes:0,liked:false,feedback:[]};return d[id];}
+function saveAppData(id,ad){const d=getData();d[id]=ad;setData(d);}
+
+function toggleLike(id,btn){
+  const ad=getAppData(id);
+  ad.liked=!ad.liked;
+  ad.likes=Math.max(0,ad.likes+(ad.liked?1:-1));
+  saveAppData(id,ad);
+  renderLike(id,btn);
+}
+function renderLike(id,btn){
+  const ad=getAppData(id);
+  btn.querySelector('.like-heart').textContent=ad.liked?'❤️':'🤍';
+  btn.querySelector('.like-count').textContent=ad.likes;
+  btn.classList.toggle('liked',ad.liked);
+}
+
+function toggleFb(id){
+  document.getElementById('fb-'+id).classList.toggle('open');
+  renderFbList(id);
+}
+function sendFb(id){
+  const input=document.getElementById('fbin-'+id);
+  const text=input.value.trim();
+  if(!text)return;
+  const ad=getAppData(id);
+  ad.feedback.push({text,time:new Date().toLocaleDateString('no-NO',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})});
+  saveAppData(id,ad);
+  input.value='';
+  renderFbList(id);
+  updateFbCount(id);
+}
+function renderFbList(id){
+  const ad=getAppData(id);
+  const list=document.getElementById('fblist-'+id);
+  if(!list)return;
+  list.innerHTML=ad.feedback.length===0
+    ?'<div style="text-align:center;color:var(--text3);font-size:.82rem;padding:10px;">Ingen tilbakemeldinger ennå</div>'
+    :ad.feedback.map(f=>`<div class="fb-item">${f.text}<div class="fb-time">${f.time}</div></div>`).join('');
+  list.scrollTop=list.scrollHeight;
+}
+function updateFbCount(id){
+  const ad=getAppData(id);
+  const card=document.querySelector(`[data-id="${id}"]`);
+  if(card){const c=card.querySelector('.fb-count');if(c)c.textContent=ad.feedback.length;}
+}
+
+function initSocial(){
+  document.querySelectorAll('.app-card[data-id]').forEach(card=>{
+    const id=card.dataset.id;
+    const ad=getAppData(id);
+    const lb=card.querySelector('.like-btn');
+    if(lb)renderLike(id,lb);
+    const fc=card.querySelector('.fb-count');
+    if(fc)fc.textContent=ad.feedback.length;
+  });
+}
+
+let activeFilter='all';
+function filterApps(filter,btn){
+  activeFilter=filter;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('searchInput').value='';
+  applyFilters();
+}
+
+document.getElementById('searchInput').addEventListener('input',applyFilters);
+
+function applyFilters(){
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  const sections=document.querySelectorAll('.section,.lock-overlay');
+  let anyVisible=false;
+
+  sections.forEach(sec=>{
+    const secType=sec.dataset.section;
+    if(activeFilter!=='all'&&activeFilter!==secType){sec.style.display='none';return;}
+    sec.style.display='';
+
+    const cards=sec.querySelectorAll('.app-card');
+    let secVis=false;
+
+    cards.forEach(card=>{
+      const tags=(card.dataset.tags||'')+' '+card.textContent.toLowerCase();
+      const match=!q||tags.includes(q);
+      card.style.display=match?'':'none';
+      if(match){secVis=true;anyVisible=true;}
+    });
+
+    if(secType==='laerer'){
+      if(activeFilter==='laerer'||activeFilter==='all'){
+        const gate=document.getElementById('lockGate');
+        if(gate.style.display!=='none'){
+          secVis=true;
+          anyVisible=true;
+        }else if(document.getElementById('teacherContent').classList.contains('unlocked')&&secVis){
+          anyVisible=true;
+        }
+      }
+    }
+
+    if(secType!=='laerer'&&!secVis&&q)sec.style.display='none';
+  });
+
+  document.getElementById('emptyState').classList.toggle('show',!anyVisible&&q.length>0);
+}
+
+const TEACHER_PASS='AVO2026';
+function tryUnlock(){
+  const input=document.getElementById('lockInput'),error=document.getElementById('lockError');
+  if(input.value===TEACHER_PASS){
+    document.getElementById('lockGate').style.display='none';
+    document.getElementById('teacherContent').classList.add('unlocked');
+    error.textContent='';
+    initSocial();
+    try{sessionStorage.setItem('portavo_teacher','1');}catch(e){}
+  }else{
+    input.classList.add('wrong');
+    error.textContent='Feil passord. Prøv igjen.';
+    setTimeout(()=>input.classList.remove('wrong'),500);
+    input.value='';
+    input.focus();
+  }
+}
+function lockTeacher(){
+  document.getElementById('lockGate').style.display='';
+  document.getElementById('teacherContent').classList.remove('unlocked');
+  document.getElementById('lockInput').value='';
+  document.getElementById('lockError').textContent='';
+  try{sessionStorage.removeItem('portavo_teacher');}catch(e){}
+}
+document.getElementById('lockInput').addEventListener('keydown',e=>{if(e.key==='Enter')tryUnlock();});
+
+document.querySelectorAll('.fb-input').forEach(inp=>{
+  inp.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){
+      e.preventDefault();
+      sendFb(inp.id.replace('fbin-',''));
+    }
+  });
+});
+
+try{
+  if(sessionStorage.getItem('portavo_teacher')==='1'){
+    document.getElementById('lockGate').style.display='none';
+    document.getElementById('teacherContent').classList.add('unlocked');
+  }
+}catch(e){}
+
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='k'){
+    e.preventDefault();
+    const s=document.getElementById('searchInput');
+    s.focus();
+    s.select();
+  }
+});
+
+initSocial();
+</script>
+</body>
+</html>
