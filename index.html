@@ -126,6 +126,13 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .banner-norsk{background:linear-gradient(135deg,#cfeccb,#e5f7e3);}
 .banner-laerer{background:linear-gradient(135deg,#d9c7fb,#eee3ff);}
 
+/* Kategori renk şeridi */
+.cat-stripe{position:absolute;top:0;left:0;right:0;height:5px;z-index:10;}
+.cat-stripe-ito{background:var(--ito);}
+.cat-stripe-fov{background:var(--fov);}
+.cat-stripe-norsk{background:var(--norsk);}
+.cat-stripe-laerer{background:var(--laerer);}
+
 .card-social{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,.05);}
 .like-btn{display:flex;align-items:center;gap:5px;background:none;border:2px solid rgba(0,0,0,.06);border-radius:50px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--text2);cursor:pointer;transition:all .25s ease;user-select:none;-webkit-user-select:none;}
 .like-btn:hover{border-color:var(--pink);color:var(--pink);background:rgba(232,125,174,.06);}
@@ -229,6 +236,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/mattavo/" class="app-card" data-id="mattavo" data-tags="ito deltaker mattavo matematikk matte regning pluss minus spill" target="_blank" rel="noopener">
       <div class="card-banner banner-ito">
+        <div class="cat-stripe cat-stripe-ito"></div>
         <span class="emoji-bg">🌍</span>
         <span class="emoji-bg">⭐</span>
         <span class="emoji-main">🚀</span>
@@ -255,6 +263,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/TikTakAVO/" class="app-card" data-id="tiktakavo" data-tags="ito deltaker tiktakavo klokke tid lese klokken time minutt spill" target="_blank" rel="noopener">
       <div class="card-banner" style="background:linear-gradient(135deg,#cfeeed,#f5ddd0);">
+        <div class="cat-stripe cat-stripe-ito"></div>
         <span class="emoji-bg">🕐</span>
         <span class="emoji-bg">⏰</span>
         <span class="emoji-main">🕐</span>
@@ -287,6 +296,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/info-om-eksamen-avo/" class="app-card" data-id="eksamen-eng" data-tags="fov deltaker eksamen engelsk informasjon info språk flerspråklig" target="_blank" rel="noopener">
       <div class="card-banner banner-fov">
+        <div class="cat-stripe cat-stripe-fov"></div>
         <span class="emoji-bg">🇬🇧</span>
         <span class="emoji-bg">📖</span>
         <span class="emoji-main">📚</span>
@@ -313,6 +323,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/info-om-eksamen-norsk/" class="app-card" data-id="eksamen-nor" data-tags="fov deltaker eksamen norsk informasjon info språk flerspråklig" target="_blank" rel="noopener">
       <div class="card-banner banner-fov">
+        <div class="cat-stripe cat-stripe-fov"></div>
         <span class="emoji-bg">🇳🇴</span>
         <span class="emoji-bg">📖</span>
         <span class="emoji-main">📝</span>
@@ -344,6 +355,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="app-grid">
     <div class="app-card coming-soon" data-tags="norsk deltaker kommer snart surprise">
       <div class="card-banner banner-norsk" style="position:relative;">
+        <div class="cat-stripe cat-stripe-norsk"></div>
         <div class="ribbon">Kommer snart</div>
         <span class="emoji-bg">🇳🇴</span>
         <span class="emoji-bg">✨</span>
@@ -381,6 +393,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
       <a href="https://avodio-694085437467.us-west1.run.app/" class="app-card" data-id="avodio" data-tags="laerer avodio lyd tekst tale audio norsk engelsk ai" target="_blank" rel="noopener">
         <div class="card-banner banner-laerer">
+          <div class="cat-stripe cat-stripe-laerer"></div>
           <span class="emoji-bg">🎤</span>
           <span class="emoji-bg">📄</span>
           <span class="emoji-main">🔊</span>
@@ -407,6 +420,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
       <a href="https://fikretkurtunyeri-a11y.github.io/FOVmuntlig/" class="app-card" data-id="muntlig-mal" data-tags="laerer fov muntlig eksamen mal template vurdering" target="_blank" rel="noopener">
         <div class="card-banner banner-laerer">
+          <div class="cat-stripe cat-stripe-laerer"></div>
           <span class="emoji-bg">📋</span>
           <span class="emoji-bg">✍️</span>
           <span class="emoji-main">🎤</span>
