@@ -189,6 +189,46 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   .teacher-tools-top{justify-content:center;}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}}
+.admin-badge{
+  display:none;
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  z-index:9999;
+  background:#1f2937;
+  color:#fff;
+  padding:10px 12px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:800;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  gap:8px;
+  align-items:center;
+}
+.admin-badge button{
+  border:none;
+  background:rgba(255,255,255,.16);
+  color:#fff;
+  border-radius:999px;
+  padding:4px 8px;
+  cursor:pointer;
+  font-weight:700;
+}
+.admin-badge.show{
+  display:flex;
+}
+
+.admin-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:10000;
+  padding:20px;
+}
+.admin-modal > div{
+  margin:80px auto 0;
+}
 </style>
 </head>
 <body>
@@ -789,7 +829,7 @@ initRealtimeSocial();
 initRealtimeSocial();
 
 // ===== ADMIN SYSTEM =====
-const ADMIN_PASS = "PortAVOAdmin2026";
+const ADMIN_PASS = "3236";
 
 function isAdmin(){
   return sessionStorage.getItem("admin") === "1";
@@ -800,14 +840,17 @@ function adminLogin(){
   if(val === ADMIN_PASS){
     sessionStorage.setItem("admin","1");
     closeAdminModal();
+    const badge = document.getElementById("adminBadge");
+    if (badge) badge.classList.add("show");
     location.reload();
   }else{
     document.getElementById("adminError").textContent = "Feil passord";
   }
 }
-
 function adminLogout(){
   sessionStorage.removeItem("admin");
+  const badge = document.getElementById("adminBadge");
+  if (badge) badge.classList.remove("show");
   location.reload();
 }
 
@@ -839,7 +882,10 @@ const oldRenderFbList = renderFbList;
 renderFbList = function(id, docs){
   const list = document.getElementById("fblist-"+id);
   if(!list) return;
-
+if (isAdmin()) {
+  const badge = document.getElementById("adminBadge");
+  if (badge) badge.classList.add("show");
+}
   list.innerHTML = docs.map(d=>{
     const data=d.data();
     return `
@@ -853,6 +899,11 @@ renderFbList = function(id, docs){
     `;
   }).join("");
 }
+window.adminLogin = adminLogin;
+window.adminLogout = adminLogout;
+window.openAdminModal = openAdminModal;
+window.closeAdminModal = closeAdminModal;
+window.deleteFeedback = deleteFeedback;
 </script>
 </body>
 </html>
