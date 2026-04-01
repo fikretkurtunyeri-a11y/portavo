@@ -441,6 +441,20 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 </div>
 
 <footer class="footer">PortAVO · Arendal Voksenopplæring</footer>
+<div class="admin-badge" id="adminBadge">
+  🛠️ Admin aktiv
+  <button onclick="adminLogout()">Logg ut</button>
+</div>
+
+<div class="admin-modal" id="adminModal">
+  <div style="background:white;padding:20px;border-radius:16px;max-width:300px;margin:auto;">
+    <h3>Admin</h3>
+    <input type="password" id="adminPassInput" placeholder="Passord" style="width:100%;padding:10px;margin-top:10px;">
+    <button onclick="adminLogin()" style="margin-top:10px;">Logg inn</button>
+    <button onclick="closeAdminModal()">Lukk</button>
+    <div id="adminError" style="color:red;margin-top:5px;"></div>
+  </div>
+</div>
 </div>
 
 <script type="module">
@@ -772,6 +786,73 @@ window.tryUnlock = tryUnlock;
 window.lockTeacher = lockTeacher;
 
 initRealtimeSocial();
+initRealtimeSocial();
+
+// ===== ADMIN SYSTEM =====
+const ADMIN_PASS = "PortAVOAdmin2026";
+
+function isAdmin(){
+  return sessionStorage.getItem("admin") === "1";
+}
+
+function adminLogin(){
+  const val = document.getElementById("adminPassInput").value;
+  if(val === ADMIN_PASS){
+    sessionStorage.setItem("admin","1");
+    closeAdminModal();
+    location.reload();
+  }else{
+    document.getElementById("adminError").textContent = "Feil passord";
+  }
+}
+
+function adminLogout(){
+  sessionStorage.removeItem("admin");
+  location.reload();
+}
+
+function openAdminModal(){
+  document.getElementById("adminModal").style.display="block";
+}
+
+function closeAdminModal(){
+  document.getElementById("adminModal").style.display="none";
+}
+
+document.querySelector(".footer").addEventListener("click", ()=>{
+  if(!window.adminClicks){window.adminClicks=0;}
+  window.adminClicks++;
+  setTimeout(()=>window.adminClicks=0,1000);
+  if(window.adminClicks>=5){
+    openAdminModal();
+  }
+});
+
+function deleteFeedback(appId, feedbackId){
+  if(!isAdmin()) return;
+  if(!confirm("Slette?")) return;
+  deleteDoc(doc(db,"apps",appId,"feedback",feedbackId));
+}
+
+const oldRenderFbList = renderFbList;
+
+renderFbList = function(id, docs){
+  const list = document.getElementById("fblist-"+id);
+  if(!list) return;
+
+  list.innerHTML = docs.map(d=>{
+    const data=d.data();
+    return `
+    <div style="position:relative">
+      <div class="fb-item">
+        ${escapeHtml(data.text||"")}
+        <div class="fb-time">${formatDate(data.createdAt)}</div>
+      </div>
+      ${isAdmin() ? `<button onclick="deleteFeedback('${id}','${d.id}')" style="position:absolute;right:5px;top:5px;">🗑</button>`:""}
+    </div>
+    `;
+  }).join("");
+}
 </script>
 </body>
 </html>
