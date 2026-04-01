@@ -126,13 +126,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .banner-norsk{background:linear-gradient(135deg,#cfeccb,#e5f7e3);}
 .banner-laerer{background:linear-gradient(135deg,#d9c7fb,#eee3ff);}
 
-/* Kategori renk şeridi */
-.cat-stripe{position:absolute;top:0;left:0;right:0;height:5px;z-index:10;}
-.cat-stripe-ito{background:var(--ito);}
-.cat-stripe-fov{background:var(--fov);}
-.cat-stripe-norsk{background:var(--norsk);}
-.cat-stripe-laerer{background:var(--laerer);}
-
 .card-social{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,0,0,.05);}
 .like-btn{display:flex;align-items:center;gap:5px;background:none;border:2px solid rgba(0,0,0,.06);border-radius:50px;padding:6px 14px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;color:var(--text2);cursor:pointer;transition:all .25s ease;user-select:none;-webkit-user-select:none;}
 .like-btn:hover{border-color:var(--pink);color:var(--pink);background:rgba(232,125,174,.06);}
@@ -236,7 +229,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/mattavo/" class="app-card" data-id="mattavo" data-tags="ito deltaker mattavo matematikk matte regning pluss minus spill" target="_blank" rel="noopener">
       <div class="card-banner banner-ito">
-        <div class="cat-stripe cat-stripe-ito"></div>
         <span class="emoji-bg">🌍</span>
         <span class="emoji-bg">⭐</span>
         <span class="emoji-main">🚀</span>
@@ -263,7 +255,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/TikTakAVO/" class="app-card" data-id="tiktakavo" data-tags="ito deltaker tiktakavo klokke tid lese klokken time minutt spill" target="_blank" rel="noopener">
       <div class="card-banner" style="background:linear-gradient(135deg,#cfeeed,#f5ddd0);">
-        <div class="cat-stripe cat-stripe-ito"></div>
         <span class="emoji-bg">🕐</span>
         <span class="emoji-bg">⏰</span>
         <span class="emoji-main">🕐</span>
@@ -296,7 +287,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/info-om-eksamen-avo/" class="app-card" data-id="eksamen-eng" data-tags="fov deltaker eksamen engelsk informasjon info språk flerspråklig" target="_blank" rel="noopener">
       <div class="card-banner banner-fov">
-        <div class="cat-stripe cat-stripe-fov"></div>
         <span class="emoji-bg">🇬🇧</span>
         <span class="emoji-bg">📖</span>
         <span class="emoji-main">📚</span>
@@ -323,7 +313,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
     <a href="https://fikretkurtunyeri-a11y.github.io/info-om-eksamen-norsk/" class="app-card" data-id="eksamen-nor" data-tags="fov deltaker eksamen norsk informasjon info språk flerspråklig" target="_blank" rel="noopener">
       <div class="card-banner banner-fov">
-        <div class="cat-stripe cat-stripe-fov"></div>
         <span class="emoji-bg">🇳🇴</span>
         <span class="emoji-bg">📖</span>
         <span class="emoji-main">📝</span>
@@ -355,7 +344,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="app-grid">
     <div class="app-card coming-soon" data-tags="norsk deltaker kommer snart surprise">
       <div class="card-banner banner-norsk" style="position:relative;">
-        <div class="cat-stripe cat-stripe-norsk"></div>
         <div class="ribbon">Kommer snart</div>
         <span class="emoji-bg">🇳🇴</span>
         <span class="emoji-bg">✨</span>
@@ -393,7 +381,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
       <a href="https://avodio-694085437467.us-west1.run.app/" class="app-card" data-id="avodio" data-tags="laerer avodio lyd tekst tale audio norsk engelsk ai" target="_blank" rel="noopener">
         <div class="card-banner banner-laerer">
-          <div class="cat-stripe cat-stripe-laerer"></div>
           <span class="emoji-bg">🎤</span>
           <span class="emoji-bg">📄</span>
           <span class="emoji-main">🔊</span>
@@ -420,7 +407,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 
       <a href="https://fikretkurtunyeri-a11y.github.io/FOVmuntlig/" class="app-card" data-id="muntlig-mal" data-tags="laerer fov muntlig eksamen mal template vurdering" target="_blank" rel="noopener">
         <div class="card-banner banner-laerer">
-          <div class="cat-stripe cat-stripe-laerer"></div>
           <span class="emoji-bg">📋</span>
           <span class="emoji-bg">✍️</span>
           <span class="emoji-main">🎤</span>
@@ -457,168 +443,335 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 <footer class="footer">PortAVO · Arendal Voksenopplæring</footer>
 </div>
 
-<script>
-function getData(){try{return JSON.parse(localStorage.getItem('portavo_data'))||{};}catch(e){return {};}}
-function setData(d){try{localStorage.setItem('portavo_data',JSON.stringify(d));}catch(e){}}
-function getAppData(id){const d=getData();if(!d[id])d[id]={likes:0,liked:false,feedback:[]};return d[id];}
-function saveAppData(id,ad){const d=getData();d[id]=ad;setData(d);}
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  increment,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-function toggleLike(id,btn){
-  const ad=getAppData(id);
-  ad.liked=!ad.liked;
-  ad.likes=Math.max(0,ad.likes+(ad.liked?1:-1));
-  saveAppData(id,ad);
-  renderLike(id,btn);
-}
-function renderLike(id,btn){
-  const ad=getAppData(id);
-  btn.querySelector('.like-heart').textContent=ad.liked?'❤️':'🤍';
-  btn.querySelector('.like-count').textContent=ad.likes;
-  btn.classList.toggle('liked',ad.liked);
-}
+const firebaseConfig = {
+  apiKey: "AIzaSyBLuBDz4BP4K4HW4zORMhiIHclCac53H28",
+  authDomain: "portavo-25599.firebaseapp.com",
+  projectId: "portavo-25599",
+  storageBucket: "portavo-25599.firebasestorage.app",
+  messagingSenderId: "733526168026",
+  appId: "1:733526168026:web:384f4dfca641d2686d70e3"
+};
 
-function toggleFb(id){
-  document.getElementById('fb-'+id).classList.toggle('open');
-  renderFbList(id);
-}
-function sendFb(id){
-  const input=document.getElementById('fbin-'+id);
-  const text=input.value.trim();
-  if(!text)return;
-  const ad=getAppData(id);
-  ad.feedback.push({text,time:new Date().toLocaleDateString('no-NO',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})});
-  saveAppData(id,ad);
-  input.value='';
-  renderFbList(id);
-  updateFbCount(id);
-}
-function renderFbList(id){
-  const ad=getAppData(id);
-  const list=document.getElementById('fblist-'+id);
-  if(!list)return;
-  list.innerHTML=ad.feedback.length===0
-    ?'<div style="text-align:center;color:var(--text3);font-size:.82rem;padding:10px;">Ingen tilbakemeldinger ennå</div>'
-    :ad.feedback.map(f=>`<div class="fb-item">${f.text}<div class="fb-time">${f.time}</div></div>`).join('');
-  list.scrollTop=list.scrollHeight;
-}
-function updateFbCount(id){
-  const ad=getAppData(id);
-  const card=document.querySelector(`[data-id="${id}"]`);
-  if(card){const c=card.querySelector('.fb-count');if(c)c.textContent=ad.feedback.length;}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+function getLocalState() {
+  try {
+    return JSON.parse(localStorage.getItem("portavo_local_state")) || {};
+  } catch {
+    return {};
+  }
 }
 
-function initSocial(){
-  document.querySelectorAll('.app-card[data-id]').forEach(card=>{
-    const id=card.dataset.id;
-    const ad=getAppData(id);
-    const lb=card.querySelector('.like-btn');
-    if(lb)renderLike(id,lb);
-    const fc=card.querySelector('.fb-count');
-    if(fc)fc.textContent=ad.feedback.length;
+function setLocalState(data) {
+  try {
+    localStorage.setItem("portavo_local_state", JSON.stringify(data));
+  } catch {}
+}
+
+function hasLikedLocally(id) {
+  const data = getLocalState();
+  return !!data[id]?.liked;
+}
+
+function setLikedLocally(id, liked) {
+  const data = getLocalState();
+  if (!data[id]) data[id] = {};
+  data[id].liked = liked;
+  setLocalState(data);
+}
+
+async function ensureAppDoc(id) {
+  const ref = doc(db, "apps", id);
+  const snap = await getDoc(ref);
+  if (!snap.exists()) {
+    await setDoc(ref, {
+      likeCount: 0,
+      createdAt: serverTimestamp()
+    });
+  }
+}
+
+async function toggleLike(id, btn) {
+  try {
+    await ensureAppDoc(id);
+
+    const alreadyLiked = hasLikedLocally(id);
+    const ref = doc(db, "apps", id);
+
+    if (alreadyLiked) {
+      await updateDoc(ref, { likeCount: increment(-1) });
+      setLikedLocally(id, false);
+    } else {
+      await updateDoc(ref, { likeCount: increment(1) });
+      setLikedLocally(id, true);
+    }
+
+    renderLikeButtonState(id, btn);
+  } catch (err) {
+    console.error("Like error:", err);
+    alert("Like işlemi sırasında bir hata oluştu.");
+  }
+}
+
+function renderLikeButtonState(id, btn) {
+  if (!btn) return;
+  const liked = hasLikedLocally(id);
+  const heart = btn.querySelector(".like-heart");
+  if (heart) heart.textContent = liked ? "❤️" : "🤍";
+  btn.classList.toggle("liked", liked);
+}
+
+function toggleFb(id) {
+  const el = document.getElementById("fb-" + id);
+  if (!el) return;
+  el.classList.toggle("open");
+}
+
+async function sendFb(id) {
+  const input = document.getElementById("fbin-" + id);
+  if (!input) return;
+
+  const text = input.value.trim();
+  if (!text) return;
+
+  try {
+    await ensureAppDoc(id);
+
+    await addDoc(collection(db, "apps", id, "feedback"), {
+      text,
+      createdAt: serverTimestamp()
+    });
+
+    input.value = "";
+  } catch (err) {
+    console.error("Feedback send error:", err);
+    alert("Mesaj gönderilirken bir hata oluştu.");
+  }
+}
+
+function formatDate(value) {
+  if (!value?.toDate) return "";
+  try {
+    return value.toDate().toLocaleString("no-NO", {
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  } catch {
+    return "";
+  }
+}
+
+function renderFbList(id, docs) {
+  const list = document.getElementById("fblist-" + id);
+  if (!list) return;
+
+  if (!docs.length) {
+    list.innerHTML = '<div style="text-align:center;color:var(--text3);font-size:.82rem;padding:10px;">Ingen tilbakemeldinger ennå</div>';
+    return;
+  }
+
+  list.innerHTML = docs.map(d => {
+    const data = d.data();
+    const safeText = escapeHtml(data.text || "");
+    const time = formatDate(data.createdAt);
+    return `<div class="fb-item">${safeText}<div class="fb-time">${time}</div></div>`;
+  }).join("");
+
+  list.scrollTop = 0;
+}
+
+function updateFbCount(id, count) {
+  const card = document.querySelector(`[data-id="${id}"]`);
+  if (!card) return;
+  const c = card.querySelector(".fb-count");
+  if (c) c.textContent = count;
+}
+
+function updateLikeCount(id, count) {
+  const card = document.querySelector(`[data-id="${id}"]`);
+  if (!card) return;
+  const span = card.querySelector(".like-count");
+  if (span) span.textContent = count;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function initRealtimeSocial() {
+  const cards = document.querySelectorAll(".app-card[data-id]");
+
+  cards.forEach(card => {
+    const id = card.dataset.id;
+    const likeBtn = card.querySelector(".like-btn");
+
+    if (likeBtn) {
+      renderLikeButtonState(id, likeBtn);
+    }
+
+    const appRef = doc(db, "apps", id);
+    onSnapshot(appRef, (snap) => {
+      if (!snap.exists()) {
+        updateLikeCount(id, 0);
+        return;
+      }
+      const data = snap.data();
+      updateLikeCount(id, data.likeCount || 0);
+    });
+
+    const fbRef = collection(db, "apps", id, "feedback");
+    const fbQuery = query(fbRef, orderBy("createdAt", "desc"));
+
+    onSnapshot(fbQuery, (snapshot) => {
+      renderFbList(id, snapshot.docs);
+      updateFbCount(id, snapshot.size);
+    });
   });
 }
 
-let activeFilter='all';
-function filterApps(filter,btn){
-  activeFilter=filter;
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('searchInput').value='';
+let activeFilter = 'all';
+
+function filterApps(filter, btn) {
+  activeFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  document.getElementById('searchInput').value = '';
   applyFilters();
 }
 
-document.getElementById('searchInput').addEventListener('input',applyFilters);
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const sections = document.querySelectorAll('.section,.lock-overlay');
+  let anyVisible = false;
 
-function applyFilters(){
-  const q=document.getElementById('searchInput').value.toLowerCase().trim();
-  const sections=document.querySelectorAll('.section,.lock-overlay');
-  let anyVisible=false;
+  sections.forEach(sec => {
+    const secType = sec.dataset.section;
+    if (activeFilter !== 'all' && activeFilter !== secType) {
+      sec.style.display = 'none';
+      return;
+    }
+    sec.style.display = '';
 
-  sections.forEach(sec=>{
-    const secType=sec.dataset.section;
-    if(activeFilter!=='all'&&activeFilter!==secType){sec.style.display='none';return;}
-    sec.style.display='';
+    const cards = sec.querySelectorAll('.app-card');
+    let secVis = false;
 
-    const cards=sec.querySelectorAll('.app-card');
-    let secVis=false;
-
-    cards.forEach(card=>{
-      const tags=(card.dataset.tags||'')+' '+card.textContent.toLowerCase();
-      const match=!q||tags.includes(q);
-      card.style.display=match?'':'none';
-      if(match){secVis=true;anyVisible=true;}
+    cards.forEach(card => {
+      const tags = (card.dataset.tags || '') + ' ' + card.textContent.toLowerCase();
+      const match = !q || tags.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) {
+        secVis = true;
+        anyVisible = true;
+      }
     });
 
-    if(secType==='laerer'){
-      if(activeFilter==='laerer'||activeFilter==='all'){
-        const gate=document.getElementById('lockGate');
-        if(gate.style.display!=='none'){
-          secVis=true;
-          anyVisible=true;
-        }else if(document.getElementById('teacherContent').classList.contains('unlocked')&&secVis){
-          anyVisible=true;
+    if (secType === 'laerer') {
+      if (activeFilter === 'laerer' || activeFilter === 'all') {
+        const gate = document.getElementById('lockGate');
+        if (gate.style.display !== 'none') {
+          secVis = true;
+          anyVisible = true;
+        } else if (document.getElementById('teacherContent').classList.contains('unlocked') && secVis) {
+          anyVisible = true;
         }
       }
     }
 
-    if(secType!=='laerer'&&!secVis&&q)sec.style.display='none';
+    if (secType !== 'laerer' && !secVis && q) sec.style.display = 'none';
   });
 
-  document.getElementById('emptyState').classList.toggle('show',!anyVisible&&q.length>0);
+  document.getElementById('emptyState').classList.toggle('show', !anyVisible && q.length > 0);
 }
 
-const TEACHER_PASS='AVO2026';
-function tryUnlock(){
-  const input=document.getElementById('lockInput'),error=document.getElementById('lockError');
-  if(input.value===TEACHER_PASS){
-    document.getElementById('lockGate').style.display='none';
+const TEACHER_PASS = 'AVO2026';
+
+function tryUnlock() {
+  const input = document.getElementById('lockInput');
+  const error = document.getElementById('lockError');
+
+  if (input.value === TEACHER_PASS) {
+    document.getElementById('lockGate').style.display = 'none';
     document.getElementById('teacherContent').classList.add('unlocked');
-    error.textContent='';
-    initSocial();
-    try{sessionStorage.setItem('portavo_teacher','1');}catch(e){}
-  }else{
+    error.textContent = '';
+    try { sessionStorage.setItem('portavo_teacher', '1'); } catch {}
+  } else {
     input.classList.add('wrong');
-    error.textContent='Feil passord. Prøv igjen.';
-    setTimeout(()=>input.classList.remove('wrong'),500);
-    input.value='';
+    error.textContent = 'Feil passord. Prøv igjen.';
+    setTimeout(() => input.classList.remove('wrong'), 500);
+    input.value = '';
     input.focus();
   }
 }
-function lockTeacher(){
-  document.getElementById('lockGate').style.display='';
-  document.getElementById('teacherContent').classList.remove('unlocked');
-  document.getElementById('lockInput').value='';
-  document.getElementById('lockError').textContent='';
-  try{sessionStorage.removeItem('portavo_teacher');}catch(e){}
-}
-document.getElementById('lockInput').addEventListener('keydown',e=>{if(e.key==='Enter')tryUnlock();});
 
-document.querySelectorAll('.fb-input').forEach(inp=>{
-  inp.addEventListener('keydown',e=>{
-    if(e.key==='Enter'){
+function lockTeacher() {
+  document.getElementById('lockGate').style.display = '';
+  document.getElementById('teacherContent').classList.remove('unlocked');
+  document.getElementById('lockInput').value = '';
+  document.getElementById('lockError').textContent = '';
+  try { sessionStorage.removeItem('portavo_teacher'); } catch {}
+}
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+document.getElementById('lockInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') tryUnlock();
+});
+
+document.querySelectorAll('.fb-input').forEach(inp => {
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
       e.preventDefault();
-      sendFb(inp.id.replace('fbin-',''));
+      sendFb(inp.id.replace('fbin-', ''));
     }
   });
 });
 
-try{
-  if(sessionStorage.getItem('portavo_teacher')==='1'){
-    document.getElementById('lockGate').style.display='none';
+try {
+  if (sessionStorage.getItem('portavo_teacher') === '1') {
+    document.getElementById('lockGate').style.display = 'none';
     document.getElementById('teacherContent').classList.add('unlocked');
   }
-}catch(e){}
+} catch {}
 
-document.addEventListener('keydown',e=>{
-  if((e.ctrlKey||e.metaKey)&&e.key==='k'){
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
     e.preventDefault();
-    const s=document.getElementById('searchInput');
+    const s = document.getElementById('searchInput');
     s.focus();
     s.select();
   }
 });
 
-initSocial();
+window.toggleLike = toggleLike;
+window.toggleFb = toggleFb;
+window.sendFb = sendFb;
+window.filterApps = filterApps;
+window.tryUnlock = tryUnlock;
+window.lockTeacher = lockTeacher;
+
+initRealtimeSocial();
 </script>
 </body>
 </html>
